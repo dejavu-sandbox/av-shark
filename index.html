@@ -177,6 +177,77 @@
             font-size: 1.1em;
             text-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
         }
+
+        /* vitesse inline visible uniquement sur mobile */
+        .vitesse-inline { display: none; }
+
+        /* ── MOBILE : layout carte ── */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h2 { font-size: 1.2em; margin-bottom: 16px; }
+            .panel { padding: 16px 12px; border-radius: 8px; }
+            .panel h3 { font-size: 0.95em; }
+            label { font-size: 0.82em; }
+            input[type="number"] { padding: 12px 8px; font-size: 1em; }
+            button { padding: 14px; font-size: 1em; border-radius: 8px; }
+
+            /* Désactiver le scroll horizontal */
+            .results { overflow-x: unset; }
+
+            /* Transformer le tableau en cartes */
+            table { display: block; background: transparent; }
+            thead { display: none; }
+            tbody { display: block; }
+
+            tr {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3px;
+                margin-bottom: 8px;
+                background: #1e1e28 !important;
+                border-radius: 8px;
+                overflow: hidden;
+                border-bottom: none;
+            }
+
+            tr:hover { background: #1e1e28 !important; }
+
+            /* En-tête de carte : Niv + vitesse sur toute la largeur */
+            tr td:first-child {
+                grid-column: 1 / -1;
+                background: #2a2a38;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 7px 12px;
+                border-bottom: none;
+            }
+
+            .vitesse-inline { display: inline; color: #666; font-size: 0.78em; }
+            .col-vitesse { display: none !important; }
+
+            td { border-bottom: none; padding: 8px 6px; }
+
+            /* Labels au-dessus des heures */
+            td.highlight-time::before {
+                content: "⚔️ Castagne";
+                display: block; font-size: 0.7em; color: #aaa;
+                font-weight: normal; margin-bottom: 3px; text-shadow: none;
+            }
+            td.time-25::before {
+                content: "🟡 25 coins";
+                display: block; font-size: 0.7em; color: #FFC107;
+                font-weight: normal; margin-bottom: 3px; text-shadow: none;
+            }
+            td.time-50::before {
+                content: "🟠 50 coins";
+                display: block; font-size: 0.7em; color: #FF9800;
+                font-weight: normal; margin-bottom: 3px; text-shadow: none;
+            }
+
+            td.time-25, td.time-50, .highlight-time { font-size: 0.88em; }
+            td div { font-size: 0.68em !important; }
+        }
     </style>
 </head>
 <body>
@@ -309,7 +380,7 @@
                     <thead>
                         <tr>
                             <th>Niveau CE</th>
-                            <th>Vitesse</th>
+                            <th class="col-vitesse">Vitesse</th>
                             <th>Heure de la castagne</th>
                             <th class="col-25">🟡 25 coins (2×)</th>
                             <th class="col-50">🟠 50 coins (2.5×)</th>
@@ -345,8 +416,8 @@
 
                 html += `
                     <tr style="${bgStyle}">
-                        <td><strong>Niv ${niv}</strong></td>
-                        <td style="color: #888;">${vitesse}s/km</td>
+                        <td><strong>Niv ${niv}</strong><span class="vitesse-inline">${vitesse}s/km</span></td>
+                        <td class="col-vitesse" style="color: #888;">${vitesse}s/km</td>
                         <td class="highlight-time">${fmtHeure(dateRetour)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes)}</div></td>
                         <td class="time-25">${fmtHeure(dateRetour25)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes25)}</div></td>
                         <td class="time-50">${fmtHeure(dateRetour50)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes50)}</div></td>
