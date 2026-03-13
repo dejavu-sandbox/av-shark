@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AV.SHARK</title>
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4973/4973848.png">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <style>
         :root {
             --bg-color: #1a1a24;
@@ -46,7 +46,7 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 700px;
+            max-width: 960px;
             width: 100%;
         }
 
@@ -197,9 +197,9 @@
             <div class="form-group">
                 <label>Heure d'attaque subit (Heure d'impact sur votre village)</label>
                 <div class="coord-group">
-                    <input type="number" id="hh" min="0" max="23" placeholder="HH" style="text-align:center;">
-                    <input type="number" id="mm" min="0" max="59" placeholder="MM" style="text-align:center;">
-                    <input type="number" id="ss" min="0" max="59" placeholder="SS" style="text-align:center;">
+                    <input type="number" id="hh" min="0" max="23" placeholder="HH" style="text-align:center;" oninput="this.value=Math.min(23,Math.max(0,parseInt(this.value)||0))">
+                    <input type="number" id="mm" min="0" max="59" placeholder="MM" style="text-align:center;" oninput="this.value=Math.min(59,Math.max(0,parseInt(this.value)||0))">
+                    <input type="number" id="ss" min="0" max="59" placeholder="SS" style="text-align:center;" oninput="this.value=Math.min(59,Math.max(0,parseInt(this.value)||0))">
                 </div>
             </div>
 
@@ -240,7 +240,7 @@
         // Scattered background images
         (function() {
             const container = document.getElementById('bg-scatter');
-            const imgUrl = 'https://media.discordapp.net/attachments/525445328095150111/1481064297848373248/AMW1TPqueunglefc2W05wD5wlDVHYvHf3fF1iZJkYTqTvYS5LYLsKMhrqGDaC1_s5uQesUsJI4nHPMsfxVVukA7ckhIdqrKwSdrojXsL0qb49ioXb8QeNR-53gcJ0WnIgCPcJdx80e8PG-GsnP5xzKBnJQm2nc5o_Ybzst1D_zXHEIFdOo3nmEOKvEeX6MBFpBbU39C4faCYefXQ48GEF3oR4x6p2mksO0Xc_-EMe48N1vNsKdnkHLsawytINMxvfNu1cNgd5uo9yfqN0msk5VSANP4gWkVHSHlUx0cDY5hBI1UuA6-tvxiuv2NwZCDc-NLPuPsUE7KpCZjnBTP9s1CTSy_Ws1600-rj.png?ex=69b3459d&is=69b1f41d&hm=ade81098c813190a5ed33c6367e8f4a889a9f9aeffe439a13b8f1744ec6da858&=&format=webp&quality=lossless';
+            const imgUrl = 'img/shark_ssj3.png';
             const count = 18;
             for (let i = 0; i < count; i++) {
                 const img = document.createElement('img');
@@ -310,11 +310,8 @@
                         <tr>
                             <th>Niveau CE</th>
                             <th>Vitesse</th>
-                            <th>Trajet</th>
-                            <th>Heure du castagnou</th>
-                            <th class="col-25">Trajet</th>
+                            <th>Heure de la castagne</th>
                             <th class="col-25">🟡 25 coins (2×)</th>
-                            <th class="col-50">Trajet</th>
                             <th class="col-50">🟠 50 coins (2.5×)</th>
                         </tr>
                     </thead>
@@ -350,12 +347,9 @@
                     <tr style="${bgStyle}">
                         <td><strong>Niv ${niv}</strong></td>
                         <td style="color: #888;">${vitesse}s/km</td>
-                        <td style="color: #aaa;">${fmtDuree(trajetSecondes)}</td>
-                        <td class="highlight-time">${fmtHeure(dateRetour)}</td>
-                        <td style="color: #aaa;">${fmtDuree(trajetSecondes25)}</td>
-                        <td class="time-25">${fmtHeure(dateRetour25)}</td>
-                        <td style="color: #aaa;">${fmtDuree(trajetSecondes50)}</td>
-                        <td class="time-50">${fmtHeure(dateRetour50)}</td>
+                        <td class="highlight-time">${fmtHeure(dateRetour)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes)}</div></td>
+                        <td class="time-25">${fmtHeure(dateRetour25)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes25)}</div></td>
+                        <td class="time-50">${fmtHeure(dateRetour50)}<div style="font-size:0.72em;color:#888;font-weight:normal;margin-top:2px;">trajet: ${fmtDuree(trajetSecondes50)}</div></td>
                     </tr>
                 `;
             }
